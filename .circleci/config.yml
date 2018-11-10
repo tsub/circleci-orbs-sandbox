@@ -1,17 +1,14 @@
 version: "2.1"
 
+orbs:
+  circleci-cli: circleci/circleci-cli@0.1.1
+
 executors:
-  circleci:
+  default:
     docker:
       - image: circleci/buildpack-deps
 
 commands:
-  update_circleci_cli:
-    steps:
-      - run:
-          name: Update circleci CLI
-          command: circleci update install
-
   test_orb:
     parameters:
       orb_file:
@@ -24,9 +21,9 @@ commands:
 
 jobs:
   test_hello:
-    executor: circleci
+    executor: default
     steps:
-      - update_circleci_cli
+      - circleci-cli/install
       - test_orb:
           orb_file: hello-orb.yml
 
