@@ -4,6 +4,8 @@ orbs:
   orb-tools: circleci/orb-tools@2.0.2
 
 workflows:
+  version: "2"
+
   build_test_deploy:
     jobs:
       - orb-tools/test-in-builds:
