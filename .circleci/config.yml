@@ -6,4 +6,4 @@ orbs:
 workflows:
   test_hello:
     jobs:
-      - hello/hello-world
+      - hello/hello_world
