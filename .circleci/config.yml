@@ -7,8 +7,8 @@ workflows:
   commit:
     jobs:
       - orb-tools/test-in-builds:
-          orb-location: hello-orb.yml
-          orb-name: hello-orb
+          orb-location: src/hello-world/orb.yml
+          orb-name: hello-world
           test-steps:
             - orb-tools/local-test-build:
-                test-config-location: test/config.yml
+                test-config-location: src/hello-world/test.yml

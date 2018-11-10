@@ -9,5 +9,5 @@ jobs:
   build:
     executor: default
     steps:
-      - hello-orb/hello
-      - hello-orb/world
+      - hello-world/hello
+      - hello-world/world
