@@ -25,9 +25,17 @@ workflows:
           orb-ref: tsub/hello-world@dev:${CIRCLE_BRANCH}
           publish-token-variable: "$ORB_PUBLISHING_TOKEN"
 
-      - orb-tools/increment:
+      - manual-approval:
+          type: approval
           requires:
             - orb-tools/test-in-builds
+          filters:
+            branches:
+              only: master
+
+      - orb-tools/increment:
+          requires:
+            - manual-approval
           filters:
             branches:
               only: master
