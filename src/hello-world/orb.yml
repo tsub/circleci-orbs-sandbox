@@ -7,9 +7,15 @@ commands:
       - run:
           name: Echo "hello"
           command: echo hello
+      - run:
+          name: Echo "hello"
+          command: echo hello
 
   world:
     steps:
+      - run:
+          name: Echo "world"
+          command: echo world
       - run:
           name: Echo "world"
           command: echo world
