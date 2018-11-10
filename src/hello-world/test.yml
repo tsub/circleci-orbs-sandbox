@@ -1,13 +1,8 @@
 version: "2.1"
 
-executors:
-  default:
-    docker:
-      - image: busybox
-
 jobs:
   build:
-    executor: default
+    executor: hello-world/default
     steps:
       - hello-world/hello
       - hello-world/world
