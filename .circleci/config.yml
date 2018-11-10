@@ -1,0 +1,9 @@
+version: "2.1"
+
+orbs:
+  hello: tsub/hello-world@0.0.2
+
+workflows:
+  test_hello:
+    jobs:
+      - hello/hello-world
