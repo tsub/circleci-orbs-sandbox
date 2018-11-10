@@ -1,0 +1,13 @@
+version: "2.1"
+
+executors:
+  default:
+    docker:
+      - image: busybox
+
+jobs:
+  build:
+    executor: default
+    steps:
+      - hello-orb/hello
+      - hello-orb/world

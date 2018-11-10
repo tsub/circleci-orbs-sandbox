@@ -1,33 +1,14 @@
 version: "2.1"
 
 orbs:
-  circleci-cli: circleci/circleci-cli@0.1.1
-
-executors:
-  default:
-    docker:
-      - image: circleci/buildpack-deps
-
-commands:
-  test_orb:
-    parameters:
-      orb_file:
-        type: string
-    steps:
-      - checkout
-      - run:
-          name: Validate hello-orb.yml
-          command: circleci orb validate << parameters.orb_file >>
-
-jobs:
-  test_hello:
-    executor: default
-    steps:
-      - circleci-cli/install
-      - test_orb:
-          orb_file: hello-orb.yml
+  orb-tools: circleci/orb-tools@2.0.2
 
 workflows:
   commit:
     jobs:
-      - test_hello
+      - orb-tools/test-in-builds:
+          orb-location: hello-orb.yml
+          orb-name: hello-orb
+          test-steps:
+            - orb-tools/local-test-build:
+                test-config-location: test/config.yml
