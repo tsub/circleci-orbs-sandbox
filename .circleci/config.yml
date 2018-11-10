@@ -2,6 +2,21 @@ version: "2.1"
 
 orbs:
   orb-tools: circleci/orb-tools@2.0.2
+  slack: circleci/slack@0.1.1
+
+executors:
+  default:
+    docker:
+      - image: circleci/buildpack-deps
+
+jobs:
+  send-approval-link:
+    executor: default
+    steps:
+      - slack/notify:
+          message: |
+            Please check and approve Job to deploy.
+            https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}
 
 workflows:
   version: "2"
@@ -25,10 +40,17 @@ workflows:
           orb-ref: tsub/hello-world@dev:${CIRCLE_BRANCH}
           publish-token-variable: "$ORB_PUBLISHING_TOKEN"
 
+      - send-approval-link:
+          requires:
+            - orb-tools/test-in-builds
+          filters:
+            branches:
+              only: master
+
       - manual-approval:
           type: approval
           requires:
-            - orb-tools/test-in-builds
+            - send-approval-link
           filters:
             branches:
               only: master
