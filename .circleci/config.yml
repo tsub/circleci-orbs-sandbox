@@ -6,6 +6,12 @@ executors:
       - image: circleci/buildpack-deps
 
 commands:
+  update_circleci_cli:
+    steps:
+      - run:
+          name: Update circleci CLI
+          command: circleci update install
+
   test_orb:
     parameters:
       orb_file:
@@ -20,6 +26,7 @@ jobs:
   test_hello:
     executor: circleci
     steps:
+      - update_circleci_cli
       - test_orb:
           orb_file: hello-orb.yml
 
