@@ -1,9 +1,29 @@
 version: "2.1"
 
-orbs:
-  hello: tsub/hello-world@0.0.2
+executors:
+  circleci:
+    docker:
+      - image: circleci/buildpack-deps
+
+commands:
+  test_orb:
+    parameters:
+      orb_file:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Validate hello-orb.yml
+          command: circleci orb validate << parameters.orb_file >>
+
+jobs:
+  test_hello:
+    executor: circleci
+    steps:
+      - test_orb:
+          orb_file: hello-orb.yml
 
 workflows:
-  test_hello:
+  commit:
     jobs:
-      - hello/hello_world
+      - test_hello
