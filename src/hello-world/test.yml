@@ -1,8 +1,7 @@
 version: "2.1"
 
-jobs:
-  build:
-    executor: hello-world/default
-    steps:
-      - hello-world/hello
-      - hello-world/world
+workflows:
+  test-hello-world:
+    jobs:
+      - hello-world/hello_world:
+          name: build
